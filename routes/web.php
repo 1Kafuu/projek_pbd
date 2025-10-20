@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
@@ -7,6 +8,8 @@ use Livewire\Volt\Volt;
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
+Route::get('datauser', [UserController::class, 'getuser'])->name('datauser');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
