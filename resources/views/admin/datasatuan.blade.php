@@ -186,66 +186,73 @@
 
 @section('content')
 
-    <div class="container ">
-        <div class="row g-0 justify-content-center">
-            <!-- Team Settings -->
-            <div class="col-md-9">
-                <div class="team-container">
-                    <div class="team-header p-3">
-                        <div>
-                            <h3 class="team-title">User</h3>
-                            <p class="team-subtitle">Manage user</p>
-                        </div>
-                        <a class="invite-btn" href = {{ route('create-user') }}>
-                            <i class="bi bi-person-plus"></i>
-                            Add User
-                        </a>
-                    </div>
+            <div class="container p-0">
+                <div class="row g-0 justify-content-center">
+                    <!-- Team Settings -->
+                    <div class="col-md-9">
+                        <div class="team-container">
+                            <div class="team-header">
+                                <div>
+                                    <h3 class="team-title">User</h3>
+                                    <p class="team-subtitle">Manage user</p>
+                                </div>
+                                <button class="invite-btn">
+                                    <i class="bi bi-person-plus"></i>
+                                    Add User
+                                </button>
+                            </div>
 
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Username</th>
-                                <th>Role</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (isset($result) && is_array($result)): ?>
-                            <?php foreach ($result as $user): ?>
-                            <?php
-                                $username = $user->USERNAME ?? '';
-                                $role = $user->NAMA_ROLE ?? 'Guest';
-                                $initial = substr($username, 0, 1);
-                            ?>
-                            <tr>
-                                <td>
-                                    <div class="user-info">
-                                        <div class="user-avatar"><?= htmlspecialchars($initial) ?></div>
-                                        <div>
-                                            <div class="user-name"><?= htmlspecialchars($username) ?></div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span><?= htmlspecialchars($role) ?></span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <i class="bi bi-three-dots-vertical action-menu"></i>
-                                </td>
-                            </tr>
-                            <?php endforeach ?>
-                            <?php endif ?>
-                        </tbody>
-                    </table>
+                            <div class="search-box">
+                                <i class="bi bi-search"></i>
+                                <input type="text" placeholder="Search...">
+                            </div>
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Id Satuan</th>
+                                        <th>Satuan</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (isset($result) && is_array($result)): ?>
+                                    <?php foreach ($result as $satuan): ?>
+                                    <?php
+                                            // Extract user data
+                                            $id = $satuan->NO_SATUAN ?? '';
+                                            $namasatuan = $satuan->NAMA_SATUAN ?? 'Guest';
+                                            $status = $satuan->STATUS_SATUAN ?? '';
+                                            ?>
+                                    <tr>
+                                        <td><input type="checkbox" /></td>
+                                        <td>
+                                            <div class="user-name"><?= htmlspecialchars($id) ?></div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <span><?= htmlspecialchars($namasatuan) ?></span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center"><?= htmlspecialchars($status) ?></div>
+                                        </td>
+                                        <td>
+                                            <i class="bi bi-three-dots-vertical action-menu"></i>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach ?>
+                                    <?php endif ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    </div>
-    </div>
+            </div>
+            </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 @endsection

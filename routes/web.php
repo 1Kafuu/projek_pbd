@@ -1,15 +1,40 @@
 <?php
 
-use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Features;
+use App\Http\Controllers\barang\barangController;
 use Livewire\Volt\Volt;
+use Laravel\Fortify\Features;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\role\roleController;
+use App\Http\Controllers\user\userController;
+use App\Http\Controllers\satuan\satuanController;
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::get('datauser', [UserController::class, 'getuser'])->name('datauser');
+Route::get('welcome', function() {
+    return view('welcome');
+});
+
+Route::get('datauser', [userController::class, 'getuser'])
+    ->middleware(['auth', 'verified'])
+    ->name('datauser');
+
+Route::get('datarole', [roleController::class, 'getrole'])
+    ->middleware(['auth', 'verified'])
+    ->name('datarole');
+
+Route::get('datasatuan', [satuanController::class, 'getsatuan'])
+    ->middleware(['auth', 'verified'])
+    ->name('datasatuan');
+
+Route::get('databarang', [barangController::class, 'getBarang'])
+    ->middleware(['auth', 'verified'])
+    ->name('databarang');
+
+Route::get('create-user', [userController::class, 'createUser'])
+    -> middleware(['auth', 'verified'])
+    -> name('create-user');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

@@ -186,56 +186,51 @@
 
 @section('content')
 
-    <div class="container ">
+    <div class="container p-0">
         <div class="row g-0 justify-content-center">
             <!-- Team Settings -->
             <div class="col-md-9">
                 <div class="team-container">
-                    <div class="team-header p-3">
+                    <div class="team-header">
                         <div>
-                            <h3 class="team-title">User</h3>
-                            <p class="team-subtitle">Manage user</p>
+                            <h3 class="team-title">Role</h3>
+                            <p class="team-subtitle">Manage role</p>
                         </div>
-                        <a class="invite-btn" href = {{ route('create-user') }}>
+                        <button class="invite-btn">
                             <i class="bi bi-person-plus"></i>
-                            Add User
-                        </a>
+                            Add Role
+                        </button>
+                    </div>
+
+                    <div class="search-box">
+                        <i class="bi bi-search"></i>
+                        <input type="text" placeholder="Search...">
                     </div>
 
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Username</th>
+                                <th></th>
+                                <th>ID Role</th>
                                 <th>Role</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (isset($result) && is_array($result)): ?>
-                            <?php foreach ($result as $user): ?>
-                            <?php
-                                $username = $user->USERNAME ?? '';
-                                $role = $user->NAMA_ROLE ?? 'Guest';
-                                $initial = substr($username, 0, 1);
-                            ?>
-                            <tr>
-                                <td>
-                                    <div class="user-info">
-                                        <div class="user-avatar"><?= htmlspecialchars($initial) ?></div>
-                                        <div>
-                                            <div class="user-name"><?= htmlspecialchars($username) ?></div>
+                            <?php foreach ($result as $role): ?>
+                                <tr>
+                                    <td><input type="checkbox" /></td>
+                                    <td>
+                                        <div class="user-name"><?= htmlspecialchars($role->ROLE ?? '') ?></div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span><?= htmlspecialchars($role->NAMA_ROLE ?? 'Guest') ?></span>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span><?= htmlspecialchars($role) ?></span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <i class="bi bi-three-dots-vertical action-menu"></i>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td><i class="bi bi-three-dots-vertical action-menu"></i></td>
+                                </tr>
                             <?php endforeach ?>
                             <?php endif ?>
                         </tbody>
