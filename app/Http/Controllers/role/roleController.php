@@ -10,6 +10,6 @@ class roleController extends Controller
 {
     public function getrole() {
         $result = DB::select("SELECT * from datarole");
-        return view('admin.datarole', compact('result'));
+        return view('admin.master.datarole', compact('result'));
     }
 }

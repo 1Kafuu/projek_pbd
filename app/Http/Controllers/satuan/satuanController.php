@@ -10,6 +10,6 @@ class satuanController extends Controller
 {
     public function getsatuan() {
         $result = DB::select("SELECT * from datasatuan");
-        return view('admin.datasatuan', compact('result'));
+        return view('admin.master.datasatuan', compact('result'));
     }
 }

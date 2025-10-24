@@ -11,11 +11,11 @@ class userController extends Controller
     public function getuser()
     {
         $result = DB::select("SELECT * from datauser");
-        return view('admin.datauser', compact('result'));
+        return view('admin.master.datauser', compact('result'));
     }
 
     public function createUser()
     {
-        return view ('admin.user-crud.create');
+        return view ('admin.master.user-crud.create');
     }
 }

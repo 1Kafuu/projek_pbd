@@ -10,6 +10,6 @@ class barangController extends Controller
 {
     public function getBarang() {
         $result = DB::select("SELECT * from databarang");
-        return view('admin.databarang', compact('result'));
+        return view('admin.master.databarang', compact('result'));
     }
 }

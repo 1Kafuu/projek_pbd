@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\role\roleController;
 use App\Http\Controllers\user\userController;
 use App\Http\Controllers\satuan\satuanController;
+use App\Http\Controllers\vendor\vendorController;
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -31,6 +32,14 @@ Route::get('datasatuan', [satuanController::class, 'getsatuan'])
 Route::get('databarang', [barangController::class, 'getBarang'])
     ->middleware(['auth', 'verified'])
     ->name('databarang');
+
+Route::get('datavendor', [vendorController::class, 'getVendor'])
+    ->middleware(['auth', 'verified'])
+    ->name('datavendor');
+
+Route::get('pengadaan', function(){
+    return view('admin.pengadaan');
+})->name('pengadaan');
 
 Route::get('create-user', [userController::class, 'createUser'])
     -> middleware(['auth', 'verified'])
