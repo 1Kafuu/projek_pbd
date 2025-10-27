@@ -1,13 +1,18 @@
 <?php
 
-use App\Http\Controllers\barang\barangController;
+use App\Http\Controllers\retur\returController;
 use Livewire\Volt\Volt;
 use Laravel\Fortify\Features;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\role\roleController;
 use App\Http\Controllers\user\userController;
+use App\Http\Controllers\barang\barangController;
+use App\Http\Controllers\margin_penjualan\marginPenjualanController;
+use App\Http\Controllers\penerimaan\penerimaanController;
 use App\Http\Controllers\satuan\satuanController;
 use App\Http\Controllers\vendor\vendorController;
+use App\Http\Controllers\pengadaan\pengadaanController;
+use App\Http\Controllers\penjualan\penjualanController;
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -37,9 +42,25 @@ Route::get('datavendor', [vendorController::class, 'getVendor'])
     ->middleware(['auth', 'verified'])
     ->name('datavendor');
 
-Route::get('pengadaan', function(){
-    return view('admin.pengadaan');
-})->name('pengadaan');
+Route::get('pengadaan', [pengadaanController::class, 'getPengadaan'])
+    ->middleware(['auth', 'verified'])
+    ->name('pengadaan');
+
+Route::get('penerimaan', [penerimaanController::class, 'getPenerimaan'])
+    ->middleware(['auth', 'verified'])
+    ->name('penerimaan');
+
+Route::get('retur', [returController::class, 'getRetur'])
+    ->middleware(['auth', 'verified'])
+    ->name('retur');
+
+Route::get('penjualan', [penjualanController::class, 'getPenjualan'])
+    ->middleware(['auth', 'verified'])
+    ->name('penjualan');
+
+Route::get('margin', [marginPenjualanController::class, 'getMargin'])
+    ->middleware(['auth', 'verified'])
+    ->name('margin');
 
 Route::get('create-user', [userController::class, 'createUser'])
     -> middleware(['auth', 'verified'])

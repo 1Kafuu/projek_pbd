@@ -129,7 +129,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
             <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 {{ __('Username') }}
             </label>
-            <input wire:model="username" id="username" name="username" type="text" required autofocus
+            <input wire:model.defer="username" id="username" name="username" type="text" required autofocus
                 autocomplete="username" placeholder="Input your username"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white @error('username') border-red-500 @enderror">
             @error('username')
@@ -143,7 +143,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 {{ __('Password') }}
             </label>
             <div class="flex items-center">
-                <input wire:model="password" id="password" name="password" type="password" required autocomplete="current-password"
+                <input wire:model.defer="password" id="password" name="password" type="password" required autocomplete="current-password"
                     placeholder="{{ __('Password') }}"
                     class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white @error('password') border-red-500 @enderror">
                 <button type="button"

@@ -1,7 +1,7 @@
 @extends('components.layouts.app.sidebar')
-@section('title', 'Data Pengadaan')
-@section('header', 'Data Pengadaan')
-@section('header-text', 'Manage your pengadaan')
+@section('title', 'Data Retur')
+@section('header', 'Data Retur')
+@section('header-text', 'Manage your retur')
 @section('style')
     <style>
         /* Jika Anda ingin tetap menggunakan warna kustom */
@@ -28,41 +28,33 @@
                     <div
                         class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
                         <div class="mb-4 sm:mb-0">
-                            <h3 class="text-2xl font-semibold text-gray-800">Pengadaan</h3>
-                            <p class="text-sm text-gray-600">Manage Pengadaan</p>
+                            <h3 class="text-2xl font-semibold text-gray-800">Retur</h3>
+                            <p class="text-sm text-gray-600">Manage Retur</p>
                         </div>
                         <button
                             class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-md flex items-center justify-center sm:justify-end transition-colors duration-300 font-medium">
-                            + Add Pengadaan
+                            + Add retur
                         </button>
                     </div>
-
-
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Id Pengadaan
+                                        Id Retur
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Tanggal Pengadaan
+                                        Tanggal Retur
+                                    </th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Tanggal Penerimaan
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Penanggung Jawab
-                                    </th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Vendor
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Total Akhir
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Status
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -72,16 +64,12 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @if(isset($result) && is_array($result))
-                                    @foreach($result as $pengadaan)
+                                    @foreach($result as $retur)
                                         @php
-        $id = $pengadaan->NO_PENGADAAN ?? 'Kosong';
-        $tgl_pengadaan = $pengadaan->TANGGAL_PENGADAAN ?? 'Kosong';
-        $penanggungJawab = $pengadaan->PENANGGUNG_JAWAB ?? 'Kosong';
-        $vendorPengadaan = $pengadaan->VENDOR ?? 'Kosong';
-        $subtotal = $pengadaan->SUBTOTAL_PENGADAAN ?? 'Kosong';
-        $ppn = $pengadaan->PPN ?? 'Kosong';
-        $total_akhir = $pengadaan->TOTAL_AKHIR ?? 'Kosong';
-        $status = $pengadaan->STATUS_PENGADAAN ?? 'Kosong'
+                                            $id = $retur->NO_RETUR ?? 'kosong';
+                                            $tgl_retur = $retur->TANGGAL_RETUR ?? 'kosong';
+                                            $tgl_penerimaan = $retur->TANGGAL_PENERIMAAN ?? 'kosong';
+                                            $penanggungJawab = $retur->PENANGGUNG_JAWAB ?? 'kosong';
                                         @endphp
                                         <tr class="hover:bg-gray-50 transition-colors">
 
@@ -92,32 +80,21 @@
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="flex items-center">
-                                                    <span class="text-sm text-gray-700">{{ htmlspecialchars($tgl_pengadaan) }}</span>
+                                                    <span
+                                                        class="text-sm text-gray-700">{{ htmlspecialchars($tgl_retur) }}</span>
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="flex items-center">
-                                                    <span class="text-sm text-gray-700">{{ htmlspecialchars($penanggungJawab) }}</span>
+                                                    <span
+                                                        class="text-sm text-gray-700">{{ htmlspecialchars($tgl_penerimaan) }}</span>
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="flex items-center">
-                                                    <span class="text-sm text-gray-700">{{ htmlspecialchars($vendorPengadaan) }}</span>
+                                                    <span
+                                                        class="text-sm text-gray-700">{{ htmlspecialchars($penanggungJawab) }}</span>
                                                 </div>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="flex items-center">
-                                                    <span class="text-sm text-gray-700">{{ htmlspecialchars($total_akhir) }}</span>
-                                                </div>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="flex items-center">
-                                                    <span class="text-sm text-gray-700">{{ htmlspecialchars($status) }}</span>
-                                                </div>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                                                <i
-                                                    class="bi bi-three-dots-vertical text-gray-500 hover:text-gray-700 cursor-pointer p-1 rounded hover:bg-gray-100 transition-colors"></i>
                                             </td>
                                         </tr>
                                     @endforeach

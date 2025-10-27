@@ -80,7 +80,7 @@
                             'color' => 'bg-gradient-to-br from-pink-500 to-rose-500',
                             'iconBg' => 'bg-pink-100',
                             'iconColor' => 'text-pink-600',
-                            'link' => 'margin-penjualan',
+                            'link' => 'margin',
                         ],
                     ];
                 @endphp
