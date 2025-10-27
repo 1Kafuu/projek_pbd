@@ -18,4 +18,19 @@ class userController extends Controller
     {
         return view ('admin.master.user-crud.create');
     }
+
+    public function storeUser(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string|min:2|max:255',
+            'password' => 'required|string|min:8|max:255'    
+        ]);
+
+        $result = DB::statement("CALL createuser(?, ?, 5)", [
+            $request->username,
+            bcrypt($request->password)  // Jika password perlu di-hash
+        ]);
+        
+        return back()->with('success', 'User added succesfully');
+    }
 }

@@ -66,6 +66,10 @@ Route::get('create-user', [userController::class, 'createUser'])
     -> middleware(['auth', 'verified'])
     -> name('create-user');
 
+Route::post('store-user', [userController::class, 'storeUser'])
+    -> middleware(['auth', 'verified'])
+    ->name('store-user');
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
