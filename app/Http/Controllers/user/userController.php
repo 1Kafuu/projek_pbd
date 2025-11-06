@@ -9,9 +9,21 @@ use Illuminate\Support\Facades\DB;
 class userController extends Controller
 {
     public function getuser()
-    {   $roles = DB::select("SELECT * FROM datarole");
+    {   
         $result = DB::select("SELECT * from datauser ORDER BY NAMA_ROLE ASC");
-        return view('admin.master.datauser', compact('result', 'roles'));
+        return view('admin.master.datauser', compact('result'));
+    }
+
+    public function getRole() {
+        $roles = DB::select("SELECT * FROM datarole");
+
+        return $roles;
+    }
+
+    public function createUser() {
+        $roles = $this->getRole();
+
+        return view('admin.master.user_crud.create', compact('roles'));
     }
 
 
@@ -40,8 +52,16 @@ class userController extends Controller
         return back()->with('success', 'User deleted successfully');
     }
 
+    public function getUserbyID($id) {
+        $roles = $this->getRole();
+        $data = DB::select("SELECT * FROM datauser WHERE ID_USER = ?", [$id]);
+        $data = $data[0];
+        
+        return view('admin.master.user_crud.update', compact('data', 'roles'));
+    }
+
     public function updateUser(Request $request, $id)
-    {
+    {   
         $request->validate([
             'username' => 'required|string|min:2|max:255',
             'role' => 'required|exists:role,idrole',    
@@ -53,6 +73,6 @@ class userController extends Controller
             $id
         ]);
         
-        return back()->with('success', 'User updated succesfully');
+        return redirect()->route('datauser')->with('success', 'User updated succesfully');
     }
 }

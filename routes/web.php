@@ -62,6 +62,9 @@ Route::get('margin', [marginPenjualanController::class, 'getMargin'])
     ->middleware(['auth', 'verified'])
     ->name('margin');
 
+Route::get('create-user',[userController::class, 'createUser'])
+    ->middleware(['auth', 'verified'])
+    ->name('create-user');
 
 Route::post('store-user', [userController::class, 'storeUser'])
     ->middleware(['auth', 'verified'])
@@ -74,6 +77,10 @@ Route::delete('delete-user/{id}', [userController::class, 'deleteUser'])
 Route::put('update-user/{id}', [userController::class, 'updateUser'])
     ->middleware(['auth', 'verified'])
     ->name('update-user');
+
+Route::get('datauser/{id}', [userController::class, 'getUserbyID'])
+    ->middleware(['auth', 'verified'])
+    ->name('getID');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

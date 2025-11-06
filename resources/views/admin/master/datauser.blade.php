@@ -31,97 +31,11 @@
                             <h3 class="text-2xl font-semibold text-gray-800">User</h3>
                             <p class="text-sm text-gray-600">Manage user</p>
                         </div>
-                        <div>
-                            <label for="create-modal"
-                                class="cursor-pointer bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-md flex items-center justify-center sm:justify-end transition-colors duration-300 font-medium">
-                                + Add User
-                            </label>
-                        </div>
 
-                        <input type="checkbox" id="create-modal" class="peer fixed appearance-none opacity-0" />
-
-                        <label for="create-modal"
-                            class="pointer-events-none invisible fixed inset-0 flex cursor-pointer items-center justify-center overflow-hidden overscroll-contain bg-slate-700/30 opacity-0 transition-all duration-200 ease-in-out peer-checked:pointer-events-auto peer-checked:visible peer-checked:opacity-100 peer-checked:*:translate-y-0 peer-checked:*:scale-100">
-
-                            <div
-                                class="max-h-[calc(100vh - 5em)] h-fit w-xl overflow-y-auto overscroll-contain rounded-md bg-white p-6 text-black shadow-2xl transition scale-95 translate-y-4 peer-checked:scale-100 peer-checked:translate-y-0 pointer-events-auto">
-
-                                <div
-                                    class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
-                                    <div class="mb-4 sm:mb-0">
-                                        <h3 class="text-2xl font-semibold text-gray-800">Create User</h3>
-                                    </div>
-
-                                    <button type="button" onclick="document.getElementById('create-modal').checked = false"
-                                        class="text-gray-400 hover:text-gray-600 ml-auto">
-                                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                    </button>
-                                </div>
-
-                                <form method="POST" id="createuser" action="{{ route('store-user') }}">
-                                    @csrf
-                                    <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                        <div class="sm:col-span-6">
-                                            <label for="username"
-                                                class="block text-sm font-medium text-gray-700 mb-1">Username</label>
-                                            <div class="relative">
-                                                <input id="username" type="text" name="username"
-                                                    placeholder="Masukkan Username..."
-                                                    class="block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm @error('username') border-red-500 @enderror"
-                                                    required>
-
-                                                @error('username')
-                                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="sm:col-span-6">
-                                            <label for="password"
-                                                class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                                            <div class="relative">
-                                                <input id="password" type="password" name="password"
-                                                    placeholder="Masukkan Password..."
-                                                    class="block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm @error('password') border-red-500 @enderror"
-                                                    required>
-                                                @error('password')
-                                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="sm:col-span-6">
-                                            <label for="role"
-                                                class="block text-sm font-medium text-gray-700 mb-1">Role</label>
-                                            <div class="relative">
-                                                <select id="role" name="role"
-                                                    class="block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm @error('role') border-red-500 @enderror"
-                                                    required>
-                                                    <option value="">Pilih Role...</option>
-                                                    @foreach ($roles as $role)
-                                                        <option value="{{ $role->ROLE }}">{{ $role->NAMA_ROLE }}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('role')
-                                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-8 flex justify-end">
-                                        <button type="submit"
-                                            class="inline-flex items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-md shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                            id="createuser">
-                                            Create User
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </label>
+                        <a href="{{ route('create-user') }}"
+                            class="cursor-pointer bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-md flex items-center justify-center sm:justify-end transition-colors duration-300 font-medium">
+                            + Add User
+                        </a>
                     </div>
 
                     @if(session('success'))
@@ -187,7 +101,9 @@
                                             </td>
 
                                             <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium space-x-2">
-                                                <label for="update-modal"
+
+
+                                                <a href="{{ route('getID', ['id' => $user->ID_USER]) }}"
                                                     class="inline-flex items-center px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-md text-sm transition-colors duration-300">
                                                     <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -195,83 +111,7 @@
                                                         </path>
                                                     </svg>
                                                     Edit
-                                                </label>
-
-                                                <input type="checkbox" id="update-modal"
-                                                    class="peer fixed appearance-none opacity-0" />
-
-                                                <label for="update-modal"
-                                                    class="pointer-events-none invisible fixed inset-0 flex cursor-pointer items-center justify-center overflow-hidden overscroll-contain bg-slate-700/30 opacity-0 transition-all duration-200 ease-in-out peer-checked:pointer-events-auto peer-checked:visible peer-checked:opacity-100 peer-checked:*:translate-y-0 peer-checked:*:scale-100">
-
-                                                    <div
-                                                        class="max-h-[calc(100vh - 5em)] h-fit w-xl overflow-y-auto overscroll-contain rounded-md bg-white p-6 text-black shadow-2xl transition scale-95 translate-y-4 peer-checked:scale-100 peer-checked:translate-y-0 pointer-events-auto">
-
-                                                        <div
-                                                            class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 pb-4 border-b border-gray-200">
-                                                            <div class="mb-4 sm:mb-0">
-                                                                <h3 class="text-2xl font-semibold text-gray-800">Update User</h3>
-                                                            </div>
-
-                                                            <button type="button"
-                                                                onclick="document.getElementById('update-modal').checked = false"
-                                                                class="text-gray-400 hover:text-gray-600 ml-auto">
-                                                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                                                    stroke="currentColor">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                                </svg>
-                                                            </button>
-                                                        </div>
-
-                                                        <form method="POST" action="{{ route('update-user', ['id' => $user->ID_USER]) }}">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                                                <div class="sm:col-span-6">
-                                                                    <label for="username"
-                                                                        class="block text-sm font-medium text-gray-700 mb-1 text-left">Username</label>
-                                                                    <div class="relative">
-                                                                        <input id="username" type="text" name="username"
-                                                                            placeholder="Masukkan Username..." value="{{ $user->USERNAME }}"
-                                                                            class="block w-full rounded-md border border-gray-300 bg-white py-2 px-3 font-normal text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm @error('username') border-red-500 @enderror"
-                                                                            required>
-
-                                                                        @error('username')
-                                                                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                                                        @enderror
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="sm:col-span-6">
-                                                                    <label for="role"
-                                                                        class="block text-sm font-medium text-gray-700 mb-1 text-left">Role</label>
-                                                                    <div class="relative">
-                                                                        <select id="role" name="role"
-                                                                            class="block w-full rounded-md border border-gray-300 bg-white py-2 px-3 font-normal text-base text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm @error('role') border-red-500 @enderror"
-                                                                            required>
-                                                                            <option value="">Pilih Role...</option>
-                                                                            @foreach ($roles as $role)
-                                                                                <option value="{{ $role->ROLE }}">{{ $role->NAMA_ROLE }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                        @error('role')
-                                                                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                                                        @enderror
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="mt-8 flex justify-end">
-                                                                <button type="submit"
-                                                                    class="inline-flex items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-md shadow-sm transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                                                    id="createuser">
-                                                                    Update User
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </label>
+                                                </a>
 
                                                 <form action="{{ route('delete-user', ['id' => $user->ID_USER]) }}" method="POST"
                                                     class="inline">
