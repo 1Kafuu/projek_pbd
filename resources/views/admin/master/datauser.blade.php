@@ -101,8 +101,6 @@
                                             </td>
 
                                             <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium space-x-2">
-
-
                                                 <a href="{{ route('getID', ['id' => $user->ID_USER]) }}"
                                                     class="inline-flex items-center px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-md text-sm transition-colors duration-300">
                                                     <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">

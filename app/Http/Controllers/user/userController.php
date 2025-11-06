@@ -28,14 +28,18 @@ class userController extends Controller
 
 
     public function storeUser(Request $request)
-    {
-        // dd($request->all());
-        
+    {   
         $request->validate([
             'username' => 'required|string|min:2|max:255',
             'password' => 'required|string|min:8|max:255',
             'role' => 'required|exists:role,idrole',    
         ]);
+
+        $check = DB::select("SELECT * FROM user WHERE username = ?", [$request->username]);
+
+        if (count($check) > 0) {
+            return back()->with('error', 'Username already exists');
+        }
 
         $result = DB::statement("INSERT INTO user (username, password, idrole) VALUES (?, ?, ?)", [
             $request->username,
@@ -43,7 +47,7 @@ class userController extends Controller
             $request->role
         ]);
         
-        return back()->with('success', 'User added succesfully');
+        return redirect()->route('datauser')->with('success', 'User added succesfully');
     }
 
     public function deleteUser($id)

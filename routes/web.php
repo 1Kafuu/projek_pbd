@@ -82,6 +82,86 @@ Route::get('datauser/{id}', [userController::class, 'getUserbyID'])
     ->middleware(['auth', 'verified'])
     ->name('getID');
 
+Route::get('create-role', [roleController::class, 'createRole'])
+    ->middleware(['auth', 'verified'])
+    ->name('create-role');
+
+Route::post('store-role', [roleController::class, 'storeRole'])
+    ->middleware(['auth', 'verified'])
+    ->name('store-role');
+
+Route::delete('delete-role/{id}', [roleController::class, 'deleteRole'])
+    ->middleware(['auth', 'verified'])
+    ->name('delete-role');
+
+Route::get('datarole/{id}', [roleController::class, 'getRolebyID'])
+    ->middleware(['auth', 'verified'])
+    ->name('getIDRole');
+
+Route::put('update-role/{id}', [roleController::class, 'updateRole'])
+    ->middleware(['auth', 'verified'])
+    ->name('update-role');
+
+Route::get('create-vendor', [vendorController::class, 'createVendor'])
+    ->middleware(['auth', 'verified'])
+    ->name('create-vendor');
+
+Route::post('store-vendor', [vendorController::class, 'storeVendor'])
+    ->middleware(['auth', 'verified'])
+    ->name('store-vendor');
+
+Route::delete('delete-vendor/{id}', [vendorController::class, 'deleteVendor'])
+    ->middleware(['auth', 'verified'])
+    ->name('delete-vendor');
+
+Route::get('datavendor/{id}', [vendorController::class, 'getVendorbyID'])
+    ->middleware(['auth', 'verified'])
+    ->name('getIDVendor');
+
+Route::put('update-vendor/{id}', [vendorController::class, 'updateVendor'])
+    ->middleware(['auth', 'verified'])
+    ->name('update-vendor');
+
+Route::get('create-satuan', [satuanController::class, 'createSatuan'])
+    ->middleware(['auth', 'verified'])
+    ->name('create-satuan');
+
+Route::post('store-satuan', [satuanController::class, 'storeSatuan'])
+    ->middleware(['auth', 'verified'])
+    ->name('store-satuan');
+
+Route::delete('delete-satuan/{id}', [satuanController::class, 'deleteSatuan'])
+    ->middleware(['auth', 'verified'])
+    ->name('delete-satuan');
+
+Route::get('datasatuan/{id}', [satuanController::class, 'getSatuanbyID'])
+    ->middleware(['auth', 'verified'])
+    ->name('getIDSatuan');
+
+Route::put('update-satuan/{id}', [satuanController::class, 'updateSatuan'])
+    ->middleware(['auth', 'verified'])
+    ->name('update-satuan');
+
+Route::get('create-barang', [barangController::class, 'createBarang'])
+    ->middleware(['auth', 'verified'])
+    ->name('create-barang');
+
+Route::post('store-barang', [barangController::class, 'storeBarang'])
+    ->middleware(['auth', 'verified'])
+    ->name('store-barang');
+
+Route::delete('delete-barang/{id}', [barangController::class, 'deleteBarang'])
+    ->middleware(['auth', 'verified'])
+    ->name('delete-barang');
+
+Route::get('databarang/{id}', [barangController::class, 'getBarangbyID'])
+    ->middleware(['auth', 'verified'])
+    ->name('getIDBarang');
+
+Route::put('update-barang/{id}', [barangController::class, 'updateBarang'])
+    ->middleware(['auth', 'verified'])
+    ->name('update-barang');
+    
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 

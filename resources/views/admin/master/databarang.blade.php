@@ -31,11 +31,30 @@
                             <h3 class="text-2xl font-semibold text-gray-800">Barang</h3>
                             <p class="text-sm text-gray-600">Manage barang</p>
                         </div>
-                        <button
+                        <a href="{{ route('create-barang') }}"
                             class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-md flex items-center justify-center sm:justify-end transition-colors duration-300 font-medium">
                             + Add Barang
-                        </button>
+                        </a>
                     </div>
+
+                    @if(session('success'))
+                        <div class="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg shadow-sm">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-green-800">
+                                        {{ session('success') }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
 
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
@@ -74,47 +93,48 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @if(isset($result) && is_array($result))
                                     @foreach($result as $barang)
-                                        @php
-                                            $id = $barang->NO_BARANG ?? '';
-                                            $jenisbarang = $barang->JENIS_BARANG ?? '';
-                                            $namabarang = $barang->NAMA_BARANG ?? '';
-                                            $satuan = $barang->SATUAN ?? '';
-                                            $status = $barang->STATUS_BARANG ?? '';
-                                            $harga = $barang->HARGA_BARANG ?? '';
-                                        @endphp
                                         <tr class="hover:bg-gray-50 transition-colors">
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="text-sm font-medium text-gray-900">
-                                                    {{ htmlspecialchars($id) }}
+                                                    {{ htmlspecialchars($barang->NO_BARANG) }}
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="flex items-center">
-                                                    <span class="text-sm text-gray-700">{{ htmlspecialchars($namabarang) }}</span>
+                                                    <span class="text-sm text-gray-700">{{ htmlspecialchars($barang->NAMA_BARANG) }}</span>
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="flex items-center">
-                                                    <span class="text-sm text-gray-700">{{ htmlspecialchars($jenisbarang) }}</span>
+                                                    <span class="text-sm text-gray-700">{{ htmlspecialchars($barang->JENIS_BARANG) }}</span>
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="flex items-center">
-                                                    <span class="text-sm text-gray-700">{{ htmlspecialchars($satuan) }}</span>
+                                                    <span class="text-sm text-gray-700">{{ htmlspecialchars($barang->SATUAN) }}</span>
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="flex items-center">
-                                                    <span class="text-sm text-gray-700">{{ htmlspecialchars($harga) }}</span>
+                                                    <span class="text-sm text-gray-700">{{ htmlspecialchars($barang->HARGA_BARANG) }}</span>
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="flex items-center">
-                                                    <span class="text-sm text-gray-700">{{ htmlspecialchars($status) }}</span>
+                                                    <?php
+                                                        $status = trim(strtolower(htmlspecialchars($barang->STATUS_BARANG)));
+                                                        $bgColor = $status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800';
+                                                        $borderColor = $status === 'active' ? 'border-green-400' : 'border-gray-400';
+                                                    ?>
+
+                                                    <span
+                                                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border {{ $bgColor }} {{ $borderColor }}">
+                                                        {{ htmlspecialchars($barang->STATUS_BARANG) }}
+                                                    </span>
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium space-x-2">
-                                                <a href=""
+                                                <a href="{{ route('getIDBarang',['id'=>$barang->NO_BARANG]) }}"
                                                     class="inline-flex items-center px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-md text-sm transition-colors duration-300">
                                                     <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -123,7 +143,7 @@
                                                     </svg>
                                                     Edit
                                                 </a>
-                                                <form action="" method="POST" class="inline">
+                                                <form action="{{ route('delete-barang',['id' => $barang->NO_BARANG]) }}" method="POST" class="inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
