@@ -8,9 +8,20 @@ use Illuminate\Support\Facades\DB;
 
 class vendorController extends Controller
 {
-    public function getVendor() {
-        $result = DB::select("SELECT *, CASE WHEN STATUS_VENDOR = 'A' THEN 'Active' ELSE 'Inactive' END AS STATUS_VENDOR, CASE WHEN BADAN_HUKUM = 'Y' THEN 'Yes' ELSE 'No' END AS BADAN_HUKUM from datavendor");
-        return view('admin.master.datavendor', compact('result'));
+    public function getVendor(Request $request) {
+        $filter = $request->query('filter', 'active');
+
+        $whereClause = '';
+        if ($filter === 'active') {
+            $whereClause = "WHERE STATUS_VENDOR = 'A'";
+        }
+
+        $result = DB::select("
+        SELECT *, CASE WHEN STATUS_VENDOR = 'A' THEN 'Active' ELSE 'Inactive' END AS STATUS_VENDOR, CASE WHEN BADAN_HUKUM = 'Y' THEN 'Yes' ELSE 'No' END AS BADAN_HUKUM from datavendor
+        $whereClause
+        ORDER BY NO_VENDOR
+    ");
+        return view('admin.master.datavendor', compact('result', 'filter'));
     }
 
     public function createVendor() {

@@ -8,10 +8,27 @@ use Illuminate\Support\Facades\DB;
 
 class barangController extends Controller
 {
-    public function getBarang() {
-        $result = DB::select("SELECT *, CASE WHEN STATUS_BARANG = '1' THEN 'Active' ELSE 'Inactive' END AS STATUS_BARANG, CASE WHEN JENIS_BARANG = 'B' THEN 'Barang' ELSE 'Jasa' END AS JENIS_BARANG from databarang ORDER BY NO_BARANG");
-        return view('admin.master.databarang', compact('result'));
+    public function getBarang(Request $request)
+    {
+        $filter = $request->query('filter', 'active'); // default: aktif saja
+
+        $whereClause = '';
+        if ($filter === 'active') {
+            $whereClause = "WHERE STATUS_BARANG = '1'";
+        }
+
+        $result = DB::select("
+        SELECT *, 
+        CASE WHEN STATUS_BARANG = '1' THEN 'Active' ELSE 'Inactive' END AS STATUS_BARANG,
+        CASE WHEN JENIS_BARANG = 'B' THEN 'Barang' ELSE 'Jasa' END AS JENIS_BARANG
+        FROM databarang
+        $whereClause
+        ORDER BY NO_BARANG
+    ");
+
+        return view('admin.master.databarang', compact('result', 'filter'));
     }
+
 
     public function getSatuan() {
         $result = DB::select("SELECT * from datasatuan WHERE STATUS_SATUAN = '1'");

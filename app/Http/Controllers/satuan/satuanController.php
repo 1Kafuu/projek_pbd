@@ -8,11 +8,23 @@ use App\Http\Controllers\Controller;
 
 class satuanController extends Controller
 {
-    public function getsatuan() {
-        $result = DB::select("SELECT *, CASE 
-            WHEN STATUS_SATUAN = '1' THEN 'Active'
-            ELSE 'Inactive' END AS STATUS_SATUAN from datasatuan");
-        return view('admin.master.datasatuan', compact('result'));
+    public function getsatuan(Request $request) {
+        $filter = $request->query('filter', 'active');
+
+        $whereClause = '';
+        if ($filter === 'active') {
+            $whereClause = "WHERE STATUS_SATUAN = '1'";
+        }
+
+        $result = DB::select("
+        SELECT *, CASE 
+        WHEN STATUS_SATUAN = '1' THEN 'Active'
+        ELSE 'Inactive' END AS STATUS_SATUAN from datasatuan
+        $whereClause
+        ORDER BY NO_SATUAN
+    ");
+
+        return view('admin.master.datasatuan', compact('result', 'filter'));
     }
 
     public function createsatuan() {

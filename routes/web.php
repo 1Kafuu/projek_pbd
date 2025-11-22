@@ -161,7 +161,43 @@ Route::get('databarang/{id}', [barangController::class, 'getBarangbyID'])
 Route::put('update-barang/{id}', [barangController::class, 'updateBarang'])
     ->middleware(['auth', 'verified'])
     ->name('update-barang');
+
+Route::get('create-margin', [marginPenjualanController::class, 'createMargin'])
+    ->middleware(['auth', 'verified'])
+    ->name('create-margin');
     
+Route::post('store-margin', [marginPenjualanController::class, 'storeMargin'])
+    ->middleware(['auth', 'verified'])
+    ->name('store-margin');
+
+Route::get('datamargin/{id}', [marginPenjualanController::class, 'getMarginbyID'])
+    ->middleware(['auth', 'verified'])
+    ->name('getIDMargin');
+
+Route::put('update-margin/{id}', [marginPenjualanController::class, 'updateMargin'])
+    ->middleware(['auth', 'verified'])
+    ->name('update-margin');
+
+Route::delete('delete-margin/{id}', [marginPenjualanController::class, 'deleteMargin'])
+    ->middleware(['auth', 'verified'])
+    ->name('delete-margin');
+
+Route::get('detail-pengadaan/{id}', [pengadaanController::class, 'detailPengadaan'])
+    ->middleware(['auth', 'verified'])
+    ->name('detail-pengadaan');
+
+Route::get('create-pengadaan', [pengadaanController::class, 'createPengadaan'])
+    ->middleware(['auth', 'verified'])
+    ->name('create-pengadaan');
+
+Route::post('store-pengadaan', [pengadaanController::class, 'storePengadaan'])
+    ->middleware(['auth', 'verified'])
+    ->name('store-pengadaan');
+
+Route::get('cancel-pengadaan/{id}', [pengadaanController::class, 'cancelPengadaan'])
+    ->middleware(['auth', 'verified'])
+    ->name('cancel-pengadaan');
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
