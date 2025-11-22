@@ -190,6 +190,10 @@ Route::get('create-pengadaan', [pengadaanController::class, 'createPengadaan'])
     ->middleware(['auth', 'verified'])
     ->name('create-pengadaan');
 
+Route::get('barang-pengadaan/{id}', [pengadaanController::class, 'getBarang'])
+    ->middleware(['auth', 'verified'])
+    ->name('barang-pengadaan');
+
 Route::post('store-pengadaan', [pengadaanController::class, 'storePengadaan'])
     ->middleware(['auth', 'verified'])
     ->name('store-pengadaan');
@@ -197,6 +201,14 @@ Route::post('store-pengadaan', [pengadaanController::class, 'storePengadaan'])
 Route::get('cancel-pengadaan/{id}', [pengadaanController::class, 'cancelPengadaan'])
     ->middleware(['auth', 'verified'])
     ->name('cancel-pengadaan');
+
+Route::get('create-penerimaan/{id}', [penerimaanController::class, 'createPenerimaan'])
+    ->middleware(['auth', 'verified'])
+    ->name('create-penerimaan');
+
+Route::post('store-penerimaan/{id}', [penerimaanController::class, 'storePenerimaan'])
+    ->middleware(['auth', 'verified'])
+    ->name('store-penerimaan');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

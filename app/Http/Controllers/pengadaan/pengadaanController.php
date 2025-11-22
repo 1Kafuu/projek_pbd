@@ -17,7 +17,7 @@ class pengadaanController extends Controller
 
         $whereClause = '';
         if ($filter === 'proses') {
-            $whereClause = "WHERE STATUS_PENGADAAN = 'P'";
+            $whereClause = "WHERE STATUS_PENGADAAN = 'P' OR STATUS_PENGADAAN = 'S'";
         } elseif ($filter === 'batal') {
             $whereClause = "WHERE STATUS_PENGADAAN = 'B'";
         }
@@ -44,14 +44,14 @@ class pengadaanController extends Controller
 
     public function getVendor()
     {
-        $result = DB::select("SELECT * FROM datavendor");
+        $result = DB::select("SELECT * FROM datavendor WHERE STATUS_VENDOR = 'A'");
         return $result;
     }
 
-    public function getBarang()
+    public function getBarang($idvendor)
     {
-        $result = DB::select("SELECT * FROM databarang");
-        return $result;
+        $barangs = DB::select("SELECT * FROM databarang WHERE NO_VENDOR = ?", [$idvendor]);
+        return response()->json($barangs);
     }
 
     public function getPengadaanbyID($id)
@@ -64,27 +64,30 @@ class pengadaanController extends Controller
     public function detailPengadaan($id)
     {
         $result = $this->getPengadaanbyID($id);
-        $result_detail = $result[0];
-        $detail = [];
+        if ($result !== []) {
+            $result_detail = $result[0];
+            $detail = [];
 
-        foreach ($result as $barang) {
-            $detail[] = [
-                'NAMA_BARANG' => $barang->NAMA_BARANG,
-                'HARGA_SATUAN' => $barang->HARGA_SATUAN,
-                'JUMLAH' => $barang->JUMLAH_BARANG,
-                'SUBTOTAL_BARANG' => $barang->SUBTOTAL_BARANG
-            ];
+            foreach ($result as $barang) {
+                $detail[] = [
+                    'NAMA_BARANG' => $barang->NAMA_BARANG,
+                    'HARGA_SATUAN' => $barang->HARGA_SATUAN,
+                    'JUMLAH' => $barang->JUMLAH_BARANG,
+                    'SUBTOTAL_BARANG' => $barang->SUBTOTAL_BARANG
+                ];
+            }
+
+            return view('admin.transaksi.pengadaan_crud.detail', compact('detail', 'result_detail'));
         }
 
-        return view('admin.transaksi.pengadaan_crud.detail', compact('detail', 'result_detail'));
+        return redirect()->route('pengadaan')->with('error', 'Detail pengadaan tidak ditemukan');
     }
 
     public function createPengadaan()
     {
         $vendors = $this->getVendor();
-        $barangs = $this->getBarang();
 
-        return view('admin.transaksi.pengadaan_crud.create', compact('vendors', 'barangs'));
+        return view('admin.transaksi.pengadaan_crud.create', compact('vendors'));
     }
 
     public function storePengadaan(Request $request)
@@ -119,9 +122,6 @@ class pengadaanController extends Controller
             if (!$create) {
                 throw new Exception('Gagal membuat pengadaan');
             }
-
-            // Get the last inserted ID
-            $pengadaanId = DB::getPdo()->lastInsertId();
 
             // Insert detail barang
             $n = count($request->barang);
