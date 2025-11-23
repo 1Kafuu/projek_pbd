@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\role\roleController;
 use App\Http\Controllers\user\userController;
 use App\Http\Controllers\barang\barangController;
+use App\Http\Controllers\kartu_stok\kartuStokController;
 use App\Http\Controllers\margin_penjualan\marginPenjualanController;
 use App\Http\Controllers\penerimaan\penerimaanController;
 use App\Http\Controllers\satuan\satuanController;
@@ -50,9 +51,9 @@ Route::get('penerimaan', [penerimaanController::class, 'getPenerimaan'])
     ->middleware(['auth', 'verified'])
     ->name('penerimaan');
 
-Route::get('retur', [returController::class, 'getRetur'])
+Route::get('stok', [kartuStokController::class, 'getStok'])
     ->middleware(['auth', 'verified'])
-    ->name('retur');
+    ->name('stok');
 
 Route::get('penjualan', [penjualanController::class, 'getPenjualan'])
     ->middleware(['auth', 'verified'])
@@ -209,6 +210,22 @@ Route::get('create-penerimaan/{id}', [penerimaanController::class, 'createPeneri
 Route::post('store-penerimaan/{id}', [penerimaanController::class, 'storePenerimaan'])
     ->middleware(['auth', 'verified'])
     ->name('store-penerimaan');
+
+Route::get('detail-penerimaan/{id}', [penerimaanController::class, 'detailPenerimaan'])
+    ->middleware(['auth', 'verified'])
+    ->name('detail-penerimaan');
+
+Route::get('create_penjualan', [penjualanController::class, 'createPenjualan'])
+    ->middleware(['auth', 'verified'])
+    ->name('create-penjualan');
+
+Route::post('store-penjualan', [penjualanController::class, 'storePenjualan'])
+    ->middleware(['auth', 'verified'])
+    ->name('store-penjualan');
+
+Route::get('detail-penjualan/{id}', [penjualanController::class, 'detailPenjualan'])
+    ->middleware(['auth', 'verified'])
+    ->name('detail-penjualan');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

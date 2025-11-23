@@ -56,13 +56,13 @@
                             'link' => 'penerimaan',
                         ],
                         [
-                            'title' => 'Retur',
-                            'description' => 'Proses pengembalian barang',
+                            'title' => 'Stock',
+                            'description' => 'Lihat stock barang yang tersedia',
                             'icon' => 'package-x',
                             'color' => 'bg-gradient-to-br from-orange-500 to-red-500',
                             'iconBg' => 'bg-orange-100',
                             'iconColor' => 'text-orange-600',
-                            'link' => 'retur',
+                            'link' => 'stok',
                         ],
                         [
                             'title' => 'Penjualan',

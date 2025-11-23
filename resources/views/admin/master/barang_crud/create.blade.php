@@ -51,6 +51,23 @@
                 <form action="{{ route('store-barang') }}" method="POST">
                     @csrf
                     <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                        <div class="sm:col-span-6">
+                            <label for="vendor" class="block text-sm font-medium text-gray-700 mb-1">Vendor</label>
+                            <div class="relative">
+                                <select id="vendor" name="vendor"
+                                    class="block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm @error('vendor') border-red-500 @enderror"
+                                    required>
+                                    <option value="">Pilih Vendor...</option>
+                                    @foreach ($vendor as $v)
+                                        <option value="{{ $v->NO_VENDOR }}">{{ $v->NAMA_VENDOR }}</option>
+                                    @endforeach
+                                </select>
+                                @error('vendor')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
                         <!-- Nama Barang Field - Full Width -->
                         <div class="sm:col-span-6">
                             <label for="nama_barang" class="block text-sm font-medium text-gray-700 mb-1">Nama
@@ -75,10 +92,12 @@
                                     class="block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm @error('jenis_barang') border-red-500 @enderror"
                                     required>
                                     <option value="">Pilih Jenis Barang...</option>
-                                    <option value="B">Barang</option>
-                                    <option value="J">Jasa</option>
+                                    <option value="A">Makanan</option>
+                                    <option value="B">Minuman</option>
+                                    <option value="C">Snack</option>
+                                    <option value="D">Kebutuhan Kamar Mandi</option>
                                 </select>
-                                @error('satuan')
+                                @error('jenis_barang')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
@@ -121,7 +140,7 @@
                                 <select id="status" name="status"
                                     class="block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm @error('status') border-red-500 @enderror"
                                     required>
-                                    <option value="">Pilih Jenis Barang...</option>
+                                    <option value="">Pilih Status...</option>
                                     <option value="1">Active</option>
                                     <option value="2">Inactive</option>
                                 </select>

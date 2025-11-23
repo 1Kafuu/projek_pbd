@@ -56,7 +56,13 @@ class pengadaanController extends Controller
 
     public function getPengadaanbyID($id)
     {
-        $data = DB::select("SELECT *, CASE WHEN STATUS_PENGADAAN = 'P' THEN 'Pending' ELSE 'Complete' END AS STATUS_PENGADAAN FROM datapengadaan_full WHERE NO_PENGADAAN = ?", [$id]);
+        $data = DB::select("SELECT *, CASE 
+            WHEN STATUS_PENGADAAN = 'P' THEN 'Process'
+            WHEN STATUS_PENGADAAN = 'S' THEN 'Sebagian' 
+            WHEN STATUS_PENGADAAN = 'C' THEN 'Selesai'
+            WHEN STATUS_PENGADAAN = 'B' THEN 'Batal'
+            ELSE 'Unknown'
+        END AS STATUS_PENGADAAN FROM datapengadaan_full WHERE NO_PENGADAAN = ?", [$id]);
 
         return $data;
     }

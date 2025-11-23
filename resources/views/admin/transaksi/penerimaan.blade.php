@@ -68,7 +68,6 @@
                             </div>
                     @endif
 
-
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
@@ -153,6 +152,17 @@
                                             </td>
 
                                             <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium space-x-2">
+                                                <a href="{{ route('detail-pengadaan', ['id' => $pengadaan->NO_PENGADAAN]) }}"
+                                                    class="inline-flex items-center px-3 py-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-md text-sm transition-colors duration-200">
+                                                    <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                    </svg>
+                                                    Detail
+                                                </a>
+
                                                 <a href="{{ route('create-penerimaan', ['id' => $pengadaan->NO_PENGADAAN]) }}"
                                                     class="inline-flex items-center px-3 py-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-md text-sm transition-colors duration-200">
                                                     <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -180,25 +190,18 @@
                             <p class="text-sm text-gray-600">Manage penerimaan</p>
                         </div>
                         <div class = "flex flex-col">
-                            {{-- <div class="flex justify-end gap-2 mb-4">
+                            <div class="flex justify-end gap-2 mb-4">
                                 <a href="{{ route('penerimaan', ['filter' => 'proses']) }}"
                                     class="px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200
                                         {{ $filter === 'proses' ? 'bg-green-600 text-white' : 'bg-green-100 text-green-700 hover:bg-green-200' }}">
                                     Proses
                                 </a>
-
-                                <a href="{{ route('penerimaan', ['filter' => 'batal']) }}"
-                                    class="px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200
-                                        {{ $filter === 'batal' ? 'bg-red-600 text-white' : 'bg-red-100 text-red-700 hover:bg-red-200' }}">
-                                    Batal
-                                </a>
-
                                 <a href="{{ route('penerimaan', ['filter' => 'semua']) }}"
                                     class="px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200
                                         {{ $filter === 'semua' ? 'bg-gray-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
                                     Semua
                                 </a>
-                            </div> --}}
+                            </div>
                         </div>
                     </div>
                     
@@ -274,7 +277,7 @@
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium space-x-2">
-                                                <a href="{{ route('detail-pengadaan', ['id' => $pengadaan->NO_PENGADAAN]) }}"
+                                                <a href="{{ route('detail-penerimaan', ['id' => $id]) }}"
                                                     class="inline-flex items-center px-3 py-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-md text-sm transition-colors duration-200">
                                                     <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -283,16 +286,6 @@
                                                             d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                     </svg>
                                                     Detail
-                                                </a>
-
-                                                <a href="{{ route('cancel-pengadaan', ['id' => $pengadaan->NO_PENGADAAN]) }}"
-                                                class="inline-flex items-center px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded-md text-sm transition-colors duration-300" onclick ="return confirm('Apakah kamu yakin ingin membatalkan pengadaan?')">
-                                                <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M6 18L18 6M6 6l12 12">
-                                                    </path>
-                                                </svg>
-                                                Cancel
                                                 </a>
                                             </td>
                                         </tr>

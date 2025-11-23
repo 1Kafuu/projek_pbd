@@ -36,9 +36,16 @@ class barangController extends Controller
         return $result;
     }
 
+    public function getVendor() {
+        $result = DB::select("SELECT * from datavendor WHERE STATUS_VENDOR = 'A'");
+        
+        return $result;
+    }
+
     public function createBarang() {
         $satuan = $this->getSatuan();
-        return view('admin.master.barang_crud.create', compact('satuan'));
+        $vendor = $this->getVendor();
+        return view('admin.master.barang_crud.create', compact('satuan', 'vendor'));
     }
 
     public function storeBarang(Request $request) {
@@ -48,6 +55,7 @@ class barangController extends Controller
             'harga' => 'required|integer',
             'status' => 'required|integer|in:1,2',
             'satuan' => 'required|exists:satuan,idsatuan',
+
         ]);
 
         $check = DB::select("SELECT * FROM databarang WHERE LOWER(nama_barang) = LOWER(?)", [$request->nama_barang]);
@@ -56,12 +64,13 @@ class barangController extends Controller
             return back()->with('error', 'Barang already exists');
         }
 
-        $result = DB::statement("INSERT INTO barang (nama, jenis, harga, `status`, idsatuan) VALUES (?, ?, ?, ?, ?)", [
+        $result = DB::statement("INSERT INTO barang (nama, jenis, harga, `status`, idsatuan, idvendor) VALUES (?, ?, ?, ?, ?, ?)", [
             $request->nama_barang,
             $request->jenis_barang,
             $request->harga,
             $request->status,
-            $request->satuan
+            $request->satuan,
+            $request->vendor
         ]);
 
         return redirect()->route('databarang')->with('success', 'Barang added succesfully');
